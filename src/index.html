@@ -1,0 +1,269 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <!--POLICY-->
+    <meta
+      name="description"
+      content="Did your backup actually work? Compare folders by content, spot missing files and recognize moves. Private, offline, no installation."
+    />
+    <title>Twinfold — Did your backup actually work?</title>
+    <link
+      rel="icon"
+      href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%23294433'/%3E%3Cpath d='M13 23h17l5 6h16v22H13z' fill='%23d5e6ba'/%3E%3Cpath d='M13 16h15l6 6h17v5H32l-5-5H13z' fill='%23d5e6ba'/%3E%3C/svg%3E"
+    />
+    <!--STYLE-->
+  </head>
+  <body>
+    <header class="masthead">
+      <a class="brand" href="#" aria-label="Twinfold home"
+        ><span class="brand-icon" aria-hidden="true">▱</span> twinfold<span
+          class="version"
+          >/ 0.1</span
+        ></a
+      >
+      <div class="header-right">
+        <span class="local-badge" data-i18n="local"
+          >● Files stay on your device</span
+        ><button id="language" class="text-button">中文</button>
+        <a
+          href="https://github.com/UTokyo2026/twinfold"
+          class="text-button"
+          target="_blank"
+          rel="noreferrer"
+          >GitHub ↗</a
+        >
+      </div>
+    </header>
+    <main>
+      <section class="hero">
+        <div>
+          <p class="eyebrow" data-i18n="eyebrow">
+            A LITTLE CERTAINTY FOR YOUR FILES
+          </p>
+          <h1 data-i18n="headline">Copied everything?<br />Know for sure.</h1>
+          <p class="intro" data-i18n="intro">
+            Compare two folders by their contents. Find what changed,<br
+              class="desktop"
+            />
+            what moved, and what never made it across.
+          </p>
+        </div>
+        <div class="hero-note">
+          <span class="mini-folders" aria-hidden="true"
+            >▱ <span>↔</span> ▱</span
+          >
+          <p data-i18n="note">
+            Your files. Your browser.<br />No uploads. No account.
+          </p>
+        </div>
+      </section>
+      <section class="workspace" aria-label="Folder comparison">
+        <div class="section-bar">
+          <span data-i18n="workspace">01 / CHOOSE YOUR FOLDERS</span
+          ><button id="demo" class="text-button" data-i18n="demo">
+            Try an example ↗
+          </button>
+        </div>
+        <div class="folder-pair">
+          <article class="folder-card" id="drop-left">
+            <div class="card-top">
+              <span class="side-tag">A</span
+              ><span data-i18n="original">ORIGINAL / BEFORE</span
+              ><span class="card-icon" aria-hidden="true">▱</span>
+            </div>
+            <h2 id="name-left" data-i18n="chooseOriginal">
+              Your original folder
+            </h2>
+            <p id="meta-left" data-i18n="dropHint">
+              Drop a folder here, or choose one below.
+            </p>
+            <div class="card-actions">
+              <button id="pick-left" data-i18n="chooseFolder">
+                Choose folder</button
+              ><button
+                id="import-left"
+                class="text-button"
+                data-i18n="loadSnapshot"
+              >
+                Load snapshot
+              </button>
+            </div>
+            <input
+              id="files-left"
+              type="file"
+              webkitdirectory
+              multiple
+              hidden
+            /><input
+              id="snapshot-left"
+              type="file"
+              accept=".json,application/json"
+              hidden
+            />
+          </article>
+          <div class="pair-arrow" aria-hidden="true">→</div>
+          <article class="folder-card" id="drop-right">
+            <div class="card-top">
+              <span class="side-tag">B</span
+              ><span data-i18n="backup">BACKUP / AFTER</span
+              ><span class="card-icon" aria-hidden="true">▱</span>
+            </div>
+            <h2 id="name-right" data-i18n="chooseBackup">
+              The folder to check
+            </h2>
+            <p id="meta-right" data-i18n="dropHint">
+              Drop a folder here, or choose one below.
+            </p>
+            <div class="card-actions">
+              <button id="pick-right" data-i18n="chooseFolder">
+                Choose folder</button
+              ><button
+                id="import-right"
+                class="text-button"
+                data-i18n="loadSnapshot"
+              >
+                Load snapshot
+              </button>
+            </div>
+            <input
+              id="files-right"
+              type="file"
+              webkitdirectory
+              multiple
+              hidden
+            /><input
+              id="snapshot-right"
+              type="file"
+              accept=".json,application/json"
+              hidden
+            />
+          </article>
+        </div>
+        <div class="compare-bar">
+          <div>
+            <span class="method" data-i18n="method">SHA-256 CONTENT CHECK</span>
+            <p data-i18n="methodHint">
+              Reads every byte. Never changes your files.
+            </p>
+          </div>
+          <div class="compare-actions">
+            <button id="clear" class="text-button" data-i18n="clear">
+              Clear</button
+            ><button id="cancel" hidden data-i18n="cancel">Cancel</button
+            ><button id="compare" class="primary" disabled data-i18n="compare">
+              Compare folders →
+            </button>
+          </div>
+        </div>
+        <div id="progress-area" hidden>
+          <progress id="progress" max="100" value="0"></progress>
+        </div>
+        <p id="message" role="status" aria-live="polite"></p>
+      </section>
+      <section id="results" hidden>
+        <div class="results-heading">
+          <div>
+            <p class="eyebrow" data-i18n="resultsEyebrow">
+              02 / THE BIG PICTURE
+            </p>
+            <h2 id="verdict"></h2>
+            <p id="verdict-note"></p>
+          </div>
+          <button id="report" data-i18n="exportReport">Export report ↓</button>
+        </div>
+        <div id="stats" class="stats"></div>
+        <div class="list-tools">
+          <div class="filters" id="filters"></div>
+          <label class="search-wrap"
+            ><span aria-hidden="true">⌕</span
+            ><input
+              id="search"
+              type="search"
+              aria-label="Search file paths"
+              placeholder="Find a file…"
+          /></label>
+        </div>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th data-i18n="status">STATUS</th>
+                <th data-i18n="file">FILE / RELATIVE PATH</th>
+                <th data-i18n="size">A → B SIZE</th>
+              </tr>
+            </thead>
+            <tbody id="rows"></tbody>
+          </table>
+          <p id="empty" hidden data-i18n="noMatches">No matching files.</p>
+        </div>
+        <button id="more" hidden data-i18n="showMore">Show 200 more</button>
+        <div class="snapshot-bar">
+          <div>
+            <h3 data-i18n="saveTitle">Leave yourself a receipt.</h3>
+            <p data-i18n="saveHint">
+              Save file names, sizes and hashes to check against a future
+              backup. No file contents included.
+            </p>
+          </div>
+          <div>
+            <button id="save-left" data-i18n="saveA">Save A snapshot ↓</button
+            ><button id="save-right" data-i18n="saveB">
+              Save B snapshot ↓
+            </button>
+          </div>
+        </div>
+      </section>
+      <section id="empty-guide" class="guide">
+        <article>
+          <span>01</span>
+          <h3 data-i18n="step1">Pick two folders</h3>
+          <p data-i18n="step1p">
+            An original and a backup. Yesterday and today. Any two versions.
+          </p>
+        </article>
+        <article>
+          <span>02</span>
+          <h3 data-i18n="step2">Look beyond file names</h3>
+          <p data-i18n="step2p">
+            Content hashes catch changes even when names and sizes match.
+          </p>
+        </article>
+        <article>
+          <span>03</span>
+          <h3 data-i18n="step3">Take the result with you</h3>
+          <p data-i18n="step3p">
+            Export a report or a snapshot. Come back whenever you need to check.
+          </p>
+        </article>
+      </section>
+      <details class="details">
+        <summary data-i18n="limitsTitle">
+          What gets checked — and what doesn't
+        </summary>
+        <p data-i18n="limits">
+          Checks file contents and case-sensitive relative paths, not empty
+          folders, permissions, timestamps, symlinks or cloud-only files the
+          browser cannot read. A matching snapshot is evidence of matching
+          recorded content, not proof of when or where a backup was made. Moved
+          means a unique identical-content pair at different paths;
+          duplicate-content matches stay as added/missing. Scans read files
+          sequentially in 4 MiB chunks. Keep folders unchanged while scanning.
+          Snapshot and report exports contain file names; share them
+          thoughtfully.
+        </p>
+      </details>
+    </main>
+    <footer>
+      <span
+        >twinfold <span class="footer-dot">·</span>
+        <span data-i18n="footer"
+          >Less guesswork. More peace of mind.</span
+        ></span
+      ><span data-i18n="footerRight">Open source · MIT · Works offline</span>
+    </footer>
+    <noscript>Twinfold needs JavaScript to compare files locally.</noscript>
+    <!--SCRIPT-->
+  </body>
+</html>
