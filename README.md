@@ -7,7 +7,7 @@
 Compare two folders by content. Find missing files, changes, and moves.<br>
 **One small HTML file. No uploads. No account. Works offline.**
 
-[Open the app](https://utokyo2026.github.io/twinfold/) · [Download offline HTML](https://github.com/UTokyo2026/twinfold/releases/latest) · [简体中文](README.zh-CN.md) · [How it works](#how-it-works)
+[Open the app](https://sq2100.com/twinfold/) · [Download offline HTML](https://github.com/sq2100/twinfold/releases/latest) · [简体中文](README.zh-CN.md) · [How it works](#how-it-works)
 
 </div>
 
@@ -19,7 +19,7 @@ Twinfold checks file contents using SHA-256 and gives you a clear answer for eve
 
 ## Try it
 
-Open the [online demo](https://utokyo2026.github.io/twinfold/) and click **Try an example**, or download the standalone HTML from [Releases](https://github.com/UTokyo2026/twinfold/releases/latest).
+Open the [online demo](https://sq2100.com/twinfold/) and click **Try an example**, or download the standalone HTML from [Releases](https://github.com/sq2100/twinfold/releases/latest).
 
 Requires Node.js 20.19+ to **build**. The finished app only needs a desktop browser.
 

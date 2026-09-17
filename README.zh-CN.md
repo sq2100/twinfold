@@ -4,7 +4,7 @@
 
 一个可以离线打开的小网页：按内容核验文件，找出缺失、变化、新增和移动。无需上传、注册或安装桌面软件。
 
-[在线使用](https://utokyo2026.github.io/twinfold/) · [下载离线网页](https://github.com/UTokyo2026/twinfold/releases/latest) · [English](README.md)
+[在线使用](https://sq2100.com/twinfold/) · [下载离线网页](https://github.com/sq2100/twinfold/releases/latest) · [English](README.md)
 
 ![Twinfold 文件夹核验演示](docs/demo.png)
 
